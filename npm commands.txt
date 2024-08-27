@@ -1,0 +1,56 @@
+Скачиваение НОД ДЖС, потом заменим на скачивание архива с проектами для сервера и клиентов
+сurl -o C:\Soft\NodeJsProg\node.msi https://nodejs.org/dist/v20.11.1/node-v20.11.1-x64.msi
+Установка НОДА максимально простая  - далее далее принимаю далее и всё.
+обязательная перезагрузка после установки НОД!!
+
+
+После скачивания папок с проектами проверяем зависимости и инициализируем проект на клиенте и сервере
+npm init -y
+npm install express basic-auth sqlite3 fs-extra express-basic-auth axios fs
+
+
+ссылка на архив с программой для установки сервиса
+https://nssm.cc/release/nssm-2.24.zip
+
+распоковать содержимое в папку C:\Soft\NodeJsProg\nssm
+
+cd C:\Soft\NodeJsProg\nssm\win64\
+.\nssm.exe install WinAPI "C:\Program Files\nodejs\node.exe" "C:\Soft\NodeJsProg\index.js"
+
+.\nssm.exe start WinAPI 
+
+
+.\nssm.exe status WinAPI 
+
+
+Для запуска сервиса на главном сервере
+
+node C:\Soft\NodeJsProg\node_modules\qckwinsvc\bin\qckwinsvc.js
+>>WinAPI
+>>For database sync
+>>Y
+
+
+
+установка расписания задачи отправки данных на клиенте
+schtasks /create /sc minute /mo 10 /tn "RunNodeScript" /tr "node C:\Soft\NodeJsProg\sendJson.js"
+schtasks /change /tn "RunNodeScript" /ru SYSTEM
+
+schtasks /query /tn "RunNodeScript" /v /fo LIST
+
+
+
+установка расписания задачи отправки данных на клиенте
+schtasks /create /sc minute /mo 10 /tn "RunNodeScript" /tr "node C:\Soft\NodeJsProg\sendJson.js"
+schtasks /change /tn "RunNodeScript" /ru SYSTEM
+
+schtasks /query /tn "RunNodeScript" /v /fo LIST
+
+
+логи пишутся в файлах txt в этой папке C:\Soft\NodeJsProg
+
+
+
+
+
+
